@@ -1,0 +1,33 @@
+/*
+  The main concept is to using sliding window to calculate the max size of non-repeating characters.
+  Author: XianYi Chen
+  Email: ms0244456@gmail.com
+*/
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        //Here, we need the left and right indices to know the size of window.
+        //temp is for calculating the current size(or length), and max is for maximum length. 
+        
+        int max=0,temp=0,left=0,right=0;
+        if(s.length() == 1){return 1;} //Still cannnot handle the single charactor scenario.
+        
+        while(right < s.length())  //while the right index not exceeding the range.
+        {
+            for(int i=left; i<right; i++) //check the current element to find if there is repeating charactor in the sliding window.
+            {
+                temp = right - left + 1;  //ab c<- this is current element, count it in size first.
+                if(s[i] == s[right])  //If finding the repeating charactor
+                {
+                    temp = temp - 1;  //minus 1 for the current element (ex: ab b<- , so b cannot be calcuted in longest size since it repeats)
+                    left = i+1; // move the sliding window.
+                    break; //break while repeating occurs.
+                }
+            }
+            if(max < temp){max = temp;}   //check is temp bigger than max.
+            temp = 0; //initialize the temp every round.
+            right ++; //add the size of sliding window.
+        }
+        return max;
+    }
+};
