@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.length() < 2){return s;}
+        else
+        {
+            int index = 0;
+            int max_len = 0;
+            int max_left;
+            while( index < s.length() )
+            {
+                int left = index;
+                int right = index;
+                while( right + 1 <= s.length() )
+                {
+                    if(s[index] == s[right + 1])
+                    {
+                        right ++;
+                    }
+                    else{break;}
+                }
+
+                while( right + 1 <= s.length() && left - 1 >= 0)
+                {
+                    if(s[right + 1] == s[left - 1])
+                    {
+                        right ++;
+                        left --;
+                    }
+                    else{break;}
+                }
+
+                index ++;
+                int len = right - left + 1;
+                if(max_len < len)
+                {
+                    max_len = len;
+                    max_left = left;
+                }
+            }
+            return s.substr(max_left,max_len);
+        }
+    }
+};
